@@ -6,6 +6,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const axios = require('axios');
 
 // environment variables
 SECRET_SESSION = process.env.SECRET_SESSION;
@@ -40,7 +41,8 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.use('/auth', require('./controllers/auth'));
+
+app.use('/countries', require('./controllers/countries'));
 
 // Add this above /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
@@ -48,7 +50,9 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { id, name, email });
 });
 
-const PORT = process.env.PORT || 3000;
+
+
+const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
 });
