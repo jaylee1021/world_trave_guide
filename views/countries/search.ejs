@@ -9,14 +9,15 @@
 
                             <div class="form-group column is-12">
                                 <label for="country"></label>
-                                <select id="country" class="input custom-select" name="country" required>
+                                <select style="width: 50%;" id="country" class="input custom-select" name="country"
+                                    required>
                                     <option selected disabled>Choose a Country</option>
                                     <% for( let x = 0; x < countries.length; x++ ) { %>
                                     <% country = countries[x] %>
                                     <option value="<%=country.name%>"><%=country.name %></option>
                                     <% } %>
                                 </select>
-                                <button type="submit" class="btn btn-primary">Send</button>
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
 
                         </div>

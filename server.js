@@ -41,13 +41,20 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-
-app.use('/countries', require('./controllers/countries'));
-
 // Add this above /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get();
   res.render('profile', { id, name, email });
+});
+
+app.use('/auth', require('./controllers/auth'));
+
+app.use('/countries', require('./controllers/countries'));
+app.use('/favorites', require('./controllers/favorites'));
+
+app.use(function (req, res, next) {
+  res.locals.message = req.flash();
+  next();
 });
 
 

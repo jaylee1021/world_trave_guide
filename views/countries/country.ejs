@@ -7,11 +7,30 @@
                     <div class="content">
                         <!-- heading -->
                         <div class="card">
+
                             <div class="card-image">
                                 <figure class="image">
                                     &nbsp;
 
+
+
+
+                                    <form method="POST" action="/countries/search">
+                                        <div class="form-group column is-12">
+                                            <label for="country"></label>
+                                            <select style="width: 50%;" id="country" class="input custom-select"
+                                                name="country" required>
+                                                <option selected disabled>Choose a Country</option>
+                                                <% for( let x = 0; x < countries.length; x++ ) { %>
+                                                <% country = countries[x] %>
+                                                <option value="<%=country.name%>"><%=country.name %></option>
+                                                <% } %>
+                                            </select>
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </form>
                                     <h2 class="mb-4 has-text-weight-medium"></h2>
+                                    <%= message %>
                                     <hr>
                                     <img class="flag" src="<%= singleCountry.flags %>" alt="'s picture"
                                         style="margin-top: 10px;  width: 500px;">
@@ -20,12 +39,20 @@
                                     <hr>
 
                                     <p> Capital: <%= singleCountry.capital %></p>
-                                    <p> Continen</p>
+                                    <p> Continent: <%= singleCountry.continents %></p>
+                                    <p> Population: <%= singleCountry.population %></p>
                                     <p> Currency: <%= singleCountry.currencies_name %> -
                                         <%= singleCountry.currencies %> </p>
-                                    <p></p>
+                                    <p> Languages: <%= singleCountry.languages %></p>
 
-
+                                    <hr>
+                                    <form method="POST" action="/countries/favorite">
+                                        <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
+                                        <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
+                                        <input type="hidden" name="countryContinents"
+                                            value="<%=singleCountry.continents %>">
+                                        <button type="submit" class="btn btn-primary">Add to favorite</button>
+                                    </form>
                                 </figure>
                             </div>
                         </div>

@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { country } = require('../models');
+const isLoggedIn = require('../middleware/isLoggedIn');
+const { country, favorite, user } = require('../models');
+const session = require('express-session');
+const flash = require('connect-flash');
+const app = express();
+
+app.use(session({
+    secret: 'secret',
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
 
 
 // /capsules route
-router.get('/', function (req, res) {
+router.get('/', isLoggedIn, function (req, res) {
     // axios.get('https://api.spacexdata.com/v4/capsules')
     //     .then(function (response) {
     //         // handle success
@@ -29,6 +41,7 @@ router.get('/', function (req, res) {
             res.render('no-result');
         });
 });
+
 
 // // /capsules/edit/:id -> go to the page that allows to edit
 // router.get('/edit/:id', function (req, res) {
@@ -57,7 +70,7 @@ router.get('/', function (req, res) {
 //     return res.render('capsules/search');
 // });
 
-router.get('/search', function (req, res) {
+router.get('/search', isLoggedIn, function (req, res) {
     country.findAll({ order: [['name', 'ASC']] })
         .then(countries => {
 
@@ -71,7 +84,9 @@ router.get('/search', function (req, res) {
         });
 });
 
-router.post('/search', function (req, res) {
+
+
+router.post('/search', isLoggedIn, function (req, res) {
     country.findAll()
         .then(countries => {
             console.log(req.body);
@@ -85,18 +100,15 @@ router.post('/search', function (req, res) {
 
 });
 // /capsules/:id
-router.get('/:name', function (req, res) {
+router.get('/:name', isLoggedIn, function (req, res) {
 
     country.findOne({
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-            // found capsule
-
-            // get all other capsules
             country.findAll()
                 .then(countries => {
-                    res.render('countries/country', { singleCountry: foundCountry });
+                    res.render('countries/country', { singleCountry: foundCountry, countries: countries, message: req.flash('message') });
                 })
                 .catch(err => {
                     console.log('Error', err);
@@ -108,6 +120,42 @@ router.get('/:name', function (req, res) {
             res.render('no-result');
         });
 });
+
+
+router.post('/favorite', isLoggedIn, function (req, res) {
+    // const { id, name, email } = req.user.get();
+    const userId = req.user.get().id;
+    favorite.findOrCreate({
+        where: {
+            userId: userId,
+            name: req.body.countryName,
+            flag: req.body.countryFlag,
+            continents: req.body.countryContinents
+        }
+    })
+        .then(([favorite, created]) => {
+
+            console.log(favorite);
+            console.log('created????', created);
+            if (created === false) {
+                console.log('already');
+                req.flash('message', 'already in your favorite');
+                res.redirect(`/countries/${req.body.countryName}`);
+            } else {
+                req.flash('message', 'added');
+                res.redirect(`/countries/${req.body.countryName}`);
+            }
+
+            // return res.redirect(`/countries/${req.body.countryName}`);
+
+        })
+        .catch(err => {
+            console.log('Error', err);
+            // res.render('no-result');
+        });
+
+});
+
 
 // router.post('/new', function (req, res) {
 //     // create a capsule with the form data
