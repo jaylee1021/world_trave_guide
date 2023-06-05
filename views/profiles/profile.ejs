@@ -13,7 +13,7 @@
               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
                 width="150">
               <div class="mt-3">
-                <h4><%= name %></h4>
+                <h4><%= foundUser.name %></h4>
                 <p class="text-secondary mb-1">Full Stack Developer</p>
                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
 
@@ -31,7 +31,7 @@
                 <h6 class="mb-0">Full Name</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <%= name %>
+                <%= foundUser.name %>
               </div>
             </div>
             <hr>
@@ -40,7 +40,7 @@
                 <h6 class="mb-0">Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <%= email %>
+                <%= foundUser.email %>
               </div>
             </div>
             <hr>
@@ -75,7 +75,7 @@
               <div class="col-sm-12">
                 <a class="btn btn-info " target="__blank"
                   href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                <form method="POST" action="/profile/<%= id %>/?_method=DELETE">
+                <form method="POST" action="/profiles/<%= foundUser.id %>/?_method=DELETE" style="display: contents;">
                   <input class="btn btn-info" type="submit" value="Delete">
                 </form>
               </div>

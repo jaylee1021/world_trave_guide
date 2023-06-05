@@ -1,0 +1,103 @@
+<div class="card text-center">
+
+    <div class="card-image">
+        <figure class="image ">
+
+            <h2 class="mb-4 has-text-weight-medium"></h2>
+
+            <hr>
+            <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %></h2>
+            <div class="card mb-3" style="max-width: 1000px;">
+                <div class="row g-0">
+                    <div class="col-md-7">
+                        <img class="flag" src="<%= singleCountry.flags %>" alt="country's flag"
+                            style="margin-top: 10px;  width: 500px;">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <p></p>
+                            <p class="card-text"> Capital: <%= singleCountry.capital %></p>
+                            <p class="card-text"> Continent: <%= singleCountry.continents %></p>
+                            <p class="card-text"> Population: <%= singleCountry.population %></p>
+                            <p class="card-text"> Currency: <%= singleCountry.currencies_name %> -
+                                <%= singleCountry.currencies %> </p>
+                            <p class="card-text"> Languages: <%= singleCountry.languages %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Official Name</p>
+                            <h5 class="card-title"><%= singleCountry.official_name %>
+                            </h5>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <p class="card-text">Other Names
+                            </p>
+                            <h5 class="card-title"><%= singleCountry.altSpellings %></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Region</p>
+                            <h5 class="card-title"><%= singleCountry.region %>
+                            </h5>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <p class="card-text">Sub-Region</p>
+                            <h5 class="card-title"><%= singleCountry.subregion %></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Map</p>
+                            <h5 class="card-title"><a href="<%= singleCountry.maps %>">Google Maps</a>
+                            </h5>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <p class="card-text">Coat Of Arms</p>
+                            <h5 class="card-title"><img src="<%= singleCountry.coatOfArms %>" alt=""
+                                    style="width: 100px;"></h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </figure>
+
+    </div>
+
+</div>

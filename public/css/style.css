@@ -84,3 +84,7 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.flag {
+    border: 1px solid black;
+}

@@ -73,13 +73,26 @@ router.get('/search', isLoggedIn, function (req, res) {
 
             const cleaned_countries = countries.map(c => c.toJSON());
             // send as json
-            console.log('countries', cleaned_countries);
             res.render('countries/search', { countries: cleaned_countries });
         })
         .catch(err => {
             console.log('Error', err);
         });
 });
+
+router.get('/detail/:name', isLoggedIn, function (req, res) {
+
+    country.findOne({
+        where: { name: req.params.name }
+    })
+        .then(foundCountry => {
+            res.render('countries/detail', { singleCountry: foundCountry });
+        })
+        .catch(err => {
+            console.log('Error', err);
+        });
+});
+
 
 router.post('/search', isLoggedIn, function (req, res) {
     country.findAll()

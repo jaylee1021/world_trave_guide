@@ -5,18 +5,24 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const { country, favorite, user } = require('../models');
 const app = express();
 
-router.get('/favorite', isLoggedIn, function (req, res) {
+router.get('/:id', isLoggedIn, function (req, res) {
+
     favorite.findAll({
-        where: { userId: parseInt(req.user.get().id) }
+        where: { userId: req.params.id }
     })
         .then(foundFavorites => {
             const cleaned_favorites = foundFavorites.map(c => c.toJSON());
 
             return res.render('favorites/favorite', { userFavorite: cleaned_favorites });
+        })
+        .catch(err => {
+            console.log('Error', err);
+            // res.render('no-result');
         });
+
 });
 
-router.post('/favorite', isLoggedIn, function (req, res) {
+router.post('/:id', isLoggedIn, function (req, res) {
     // const { id, name, email } = req.user.get();
     const userId = req.user.get().id;
     favorite.findOrCreate({
