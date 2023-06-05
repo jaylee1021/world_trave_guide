@@ -80,16 +80,7 @@ body {
     box-shadow: none !important;
 }
 
-.flag {
-    border: 1px solid black;
-}
-
-.btn {
-    width: 15em;
-    font-size: 1em;
-    background-color: blue;
-    color: white;
-    padding: 0.8em 0;
-    border: none;
-    border-radius: 1.5em;
+.center {
+    display: flex;
+    justify-content: center;
 }

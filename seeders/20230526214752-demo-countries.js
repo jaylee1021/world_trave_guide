@@ -31,7 +31,7 @@ module.exports = {
           if (c.languages) {
             languages = Object.values(c.languages).toString().split(',').join(', ');
           }
-          console.log(currencies, currencies_name, capital, languages);
+          // console.log(currencies, currencies_name, capital, languages);
           const result = {
             name: c.name.common,
             official_name: c.name.official,
@@ -57,7 +57,7 @@ module.exports = {
           return result;
         });
         console.log('new country', countries);
-        await queryInterface.bulkInsert('countries', countries, {});
+        // await queryInterface.bulkInsert('countries', countries, {});
       })
       .catch(err => console.log(err));
   },

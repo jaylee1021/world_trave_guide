@@ -3,17 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const { country, favorite, user } = require('../models');
-const session = require('express-session');
-const flash = require('connect-flash');
 const app = express();
-
-app.use(session({
-    secret: 'secret',
-    cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(flash());
 
 
 // /capsules route
@@ -30,11 +20,18 @@ router.get('/', isLoggedIn, function (req, res) {
     // READ all capsules send capsules to 
     country.findAll()
         .then(countries => {
-            console.log('raw data countries', countries);
-            const cleaned_countries = countries.map(c => c.toJSON());
-            console.log('cleaned countries', cleaned_countries);
-            // send as json
-            res.render('countries/index', { countries: cleaned_countries });
+
+            favorite.findAll({
+                where: {
+                    userId: req.user.get().id
+                }
+            })
+                .then(userFavorite => {
+                    const cleaned_countries = countries.map(c => c.toJSON());
+                    res.render('countries/index', { countries: cleaned_countries, userFavorite });
+                });
+
+
         })
         .catch(err => {
             console.log('Error', err);
@@ -84,13 +81,16 @@ router.get('/search', isLoggedIn, function (req, res) {
         });
 });
 
-
-
 router.post('/search', isLoggedIn, function (req, res) {
     country.findAll()
         .then(countries => {
-            console.log(req.body);
+            console.log('req.body', req.body);
+            // if (!req.body.country) {
+            //     req.flash('error', 'Select a Country');
+            //     return res.redirect('search');
+            // } else {
             return res.redirect(`/countries/${req.body.country}`);
+            // }
             // res.render('countries/search', { countries: cleaned_countries });
         })
         .catch(err => {
@@ -99,62 +99,52 @@ router.post('/search', isLoggedIn, function (req, res) {
         });
 
 });
-// /capsules/:id
-router.get('/:name', isLoggedIn, function (req, res) {
 
+router.get('/:name', isLoggedIn, function (req, res) {
     country.findOne({
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-            country.findAll()
-                .then(countries => {
-                    res.render('countries/country', { singleCountry: foundCountry, countries: countries, message: req.flash('message') });
+            favorite.findAll({
+                where: {
+                    userId: req.user.get().id
+                }
+            })
+                .then(userFavorite => {
+                    country.findAll({ order: [['name', 'ASC']] })
+                        .then(countries => {
+                            res.render('countries/country', { singleCountry: foundCountry, countries: countries, userFavorite });
+                        })
+                        .catch(err => {
+                            console.log('Error', err);
+                        });
                 })
                 .catch(err => {
                     console.log('Error', err);
-                    res.render('no-result');
                 });
         })
         .catch(err => {
             console.log('Error', err);
-            res.render('no-result');
         });
 });
 
-
-router.post('/favorite', isLoggedIn, function (req, res) {
-    // const { id, name, email } = req.user.get();
-    const userId = req.user.get().id;
-    favorite.findOrCreate({
+router.delete('/:name', isLoggedIn, function (req, res) {
+    favorite.destroy({
         where: {
-            userId: userId,
-            name: req.body.countryName,
-            flag: req.body.countryFlag,
-            continents: req.body.countryContinents
+            userId: req.user.get().id,
+            name: req.body.country
         }
-    })
-        .then(([favorite, created]) => {
-
-            console.log(favorite);
-            console.log('created????', created);
-            if (created === false) {
-                console.log('already');
-                req.flash('message', 'already in your favorite');
-                res.redirect(`/countries/${req.body.countryName}`);
-            } else {
-                req.flash('message', 'added');
-                res.redirect(`/countries/${req.body.countryName}`);
-            }
-
-            // return res.redirect(`/countries/${req.body.countryName}`);
-
-        })
-        .catch(err => {
-            console.log('Error', err);
-            // res.render('no-result');
-        });
-
+            .then(deleted => {
+                console.log('country name', req.body.country);
+                return res.redirect(`/countries/${req.body.country}`);
+            })
+            .catch(err => {
+                console.log('Errorrrrrrr', err);
+                // res.render('no-result');
+            })
+    });
 });
+
 
 
 // router.post('/new', function (req, res) {

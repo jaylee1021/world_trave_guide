@@ -38,13 +38,28 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('auth/login');
 });
 
 // Add this above /auth controllers
-app.get('/profile', isLoggedIn, (req, res) => {
+app.get('/profile/:id', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get();
   res.render('profile', { id, name, email });
+});
+
+app.delete('/profile/:id', function (req, res) {
+  user.destroy({
+    where: { id: parseInt(req.user.get().id) }
+  })
+    .then(numOfRowsDeleted => {
+      console.log('How many rows were deleted?', numOfRowsDeleted);
+      // redirect the user back to all members page /members
+      res.redirect('/auth/login');
+    })
+    .catch(err => {
+      console.log('Error', err);
+
+    });
 });
 
 app.use('/auth', require('./controllers/auth'));

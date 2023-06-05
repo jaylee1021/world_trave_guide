@@ -1,29 +1,50 @@
-<section class="section">
-    <div class="container">
-        <div class="columns is-desktop is-justify-content-center">
-            <div class="column is-8-desktop">
-                <div class="p-6 shadow rounded content">
+<div class="card text-center">
 
+    <div class="card-image">
+        <figure class="image ">
 
-                    <div class="columns is-multiline">
+            <div class="form-group column is-12">
+                <div class="columns is-multiline">
 
-                        <div class="form-group column is-12">
-                            <label for="country"></label>
+                    <div class="form-group column is-12">
+                        <label for="country"></label>
 
-                            <% for( let x = 0; x < userFavorite.length; x++ ) { %>
-                            <% let singleFavorite = userFavorite[x] %>
-                            <p> <%= singleFavorite.name %></p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Flag</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Continent</th>
+                                    <th scope="col">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for( let x = 0; x < userFavorite.length; x++ ) { %>
+                                <% let singleUserFavorite = userFavorite[x] %>
+                                <tr>
+                                    <th scope="row"><%= x+1 %></th>
+                                    <td><img class="flag" src="<%= singleUserFavorite.flag %>" alt="'s picture"
+                                            style="margin-top: 10px;  width: 100px;"></td>
+                                    <td><%= singleUserFavorite.name %></td>
+                                    <td><%= singleUserFavorite.continents %></td>
+                                    <td>
 
-                            <% } %>
+                                    </td>
+                                </tr>
+                                <% } %>
 
-
-
-                        </div>
+                            </tbody>
+                        </table>
 
                     </div>
 
                 </div>
             </div>
-        </div>
+
+
+        </figure>
+
     </div>
-</section>
+
+</div>

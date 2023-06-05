@@ -1,0 +1,11 @@
+<% if (alerts.present) { %>
+<% alerts.present.forEach(msg => { %>
+<div class="alert alert-danger"><%= msg %></div>
+<% }) %>
+<% } %>
+
+<% if (alerts.added) { %>
+<% alerts.added.forEach(msg => { %>
+<div class="alert alert-success"><%= msg %></div>
+<% }) %>
+<% } %>
