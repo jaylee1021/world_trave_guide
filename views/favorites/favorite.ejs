@@ -1,57 +1,40 @@
 <div class="card text-center">
-
     <div class="card-image">
         <figure class="image ">
-
             <div class="form-group column is-12">
-                <div class="columns is-multiline">
-
-                    <div class="form-group column is-12">
-                        <label for="country"></label>
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Flag</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Continent</th>
-                                    <th scope="col">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for( let x = 0; x < userFavorite.length; x++ ) { %>
-                                <% let singleUserFavorite = userFavorite[x] %>
-                                <tr>
-                                    <th scope="row"><%= x+1 %></th>
-                                    <td><img class="flag" src="<%= singleUserFavorite.flag %>" alt="'s picture"
-                                            style="margin-top: 10px;  width: 100px;"></td>
-                                    <td><%= singleUserFavorite.name %></td>
-                                    <td><%= singleUserFavorite.continents %></td>
-                                    <td>
-
-                                        <form method="POST"
-                                            action="/favorites/<%=singleUserFavorite.id%>?_method=DELETE">
-                                            <input class="btn btn-danger" type="submit" value="Delete">
-                                        </form>
-
-
-
-                                    </td>
-                                </tr>
-                                <% } %>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
+                <div class="columns is-multiline" <div class="form-group column is-12">
+                    <label for="country"></label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Flag</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Continent</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for( let x = 0; x < userFavorite.length; x++ ) { %>
+                            <% let singleUserFavorite = userFavorite[x] %>
+                            <tr>
+                                <th scope="row"><%= x+1 %></th>
+                                <td><img class="flag" src="<%= singleUserFavorite.flag %>" alt="'s picture"
+                                        style="margin-top: 10px;  width: 100px;"></td>
+                                <td><%= singleUserFavorite.name %></td>
+                                <td><%= singleUserFavorite.continents %></td>
+                                <td>
+                                    <form method="POST" action="/favorites/<%=singleUserFavorite.id%>?_method=DELETE">
+                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-
-        </figure>
-
     </div>
-
+    </figure>
+</div>
 </div>

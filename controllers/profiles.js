@@ -13,71 +13,70 @@ router.get('/:id', isLoggedIn, (req, res) => {
         }
     })
         .then(foundUser => {
-            console.log('found user', foundUser.toJSON());
-            // const { id, name, email } = req.user.get();
-
             res.render('profiles/profile', { foundUser });
         })
         .catch(err => {
             console.log('Error', err);
-
         });
-
 });
 
-// router.delete('/delete/:id', function (req, res) {
-//     // console.log('user id', req.user.get().id);
-//     console.log('req. params', req.params.id);
-//     user.destroy({
-//         where: { id: parseInt(req.params.id) }
-//     })
-//         .then(numOfRowsDeleted => {
-//             console.log('How many rows were deleted?', numOfRowsDeleted);
-//             // redirect the user back to all members page /members
-//             res.redirect('/auth/login');
-//         })
-//         .catch(err => {
-//             console.log('Error', err);
-
-//         });
-// });
-
-// POST /savedArticles/delete/:id - Delete a saved article
-router.post('/delete/:id', isLoggedIn, async (req, res) => {
-    try {
-        // Retrieve the article ID from the request parameters
-        const { id } = req.params;
-        const userId = req.user.id;
-        // Delete the article from the database or any other data source
-        await user.destroy({
-            where: { userId }, // Delete the article for the logged-in user based on the ID and author
+router.get('/edit/:id', isLoggedIn, (req, res) => {
+    user.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(foundUser => {
+            res.render('profiles/edit', { foundUser });
+        })
+        .catch(err => {
+            console.log('Error', err);
         });
-
-        // Redirect back to the saved articles page
-        res.redirect('/auth/login');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
 });
 
-
-router.delete('/delete/:id', isLoggedIn, async (req, res) => {
-    try {
-        // Retrieve the article ID from the request parameters
-        const { id } = req.params;
-        const userId = req.user.id;
-        // Delete the article from the database or any other data source
-        await favorite.destroy({
-            where: { userId }, // Delete the article for the logged-in user based on the ID and author
+router.delete('/:id', isLoggedIn, (req, res) => {
+    const id = req.user.id;
+    favorite.destroy({
+        where: { userId: id }
+    })
+        .then((numOfRowsDeleted) => {
+            console.log('favorite deleted?', numOfRowsDeleted);
+            user.destroy({
+                where: { id }
+            })
+                .then((numOfRowsDeleted) => {
+                    console.log('user deleted?', numOfRowsDeleted);
+                    res.redirect('/auth/login');
+                })
+                .catch((error) => {
+                    console.error(error);
+                    res.status(500).send('Internal Server Error');
+                });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
         });
+});
 
-        // Redirect back to the saved articles page
-        res.redirect('/auth/login');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+router.put('/edit/:id', isLoggedIn, function (req, res) {
+    // find the capsule, and then go edit page
+    console.log('form data', req.body);
+
+    const parsed_user_data = { ...req.body };
+
+    parsed_user_data.name = req.body.name;
+    parsed_user_data.email = req.body.email;
+
+    user.update(parsed_user_data, {
+        where: { id: req.params.id }
+    })
+        .then(numOfRowsChanged => {
+
+            console.log('how many rows got updated?', numOfRowsChanged);
+            res.redirect(`/profiles/${parseInt(req.params.id)}`);
+        })
+        .catch(err => console.log('Error', err));
 });
 
 module.exports = router;

@@ -1,10 +1,5 @@
 <div class="container">
   <div class="main-body">
-
-    <!-- Breadcrumb -->
-
-    <!-- /Breadcrumb -->
-
     <div class="row gutters-sm">
       <div class="col-md-4 mb-3">
         <div class="card">
@@ -16,12 +11,10 @@
                 <h4><%= foundUser.name %></h4>
                 <p class="text-secondary mb-1">Full Stack Developer</p>
                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <div class="col-md-8">
         <div class="card mb-3">
@@ -72,24 +65,15 @@
             </div>
             <hr>
             <div class="row">
-              <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank"
-                  href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                <form method="POST" action="/profiles/delete/<%= foundUser.id %>">
+              <div class="col-sm-12" style="display: flex; justify-content: space-between">
+                <a class="btn btn-info" href="/profiles/edit/<%=foundUser.id %>">Edit</a>
+                <form method="POST" action="/profiles/<%=foundUser.id%>?_method=DELETE">
                   <input class="btn btn-danger" type="submit" value="Delete">
-
-                </form>
                 </form>
               </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
       </div>
     </div>
 

@@ -28,8 +28,6 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
         // Retrieve the article ID from the request parameters
         const { id } = req.params;
         const userId = req.user.id;
-        console.log('id', id);
-        console.log('userId', userId);
         // Delete the article from the database or any other data source
         await favorite.destroy({
             where: { userId, id }, // Delete the article for the logged-in user based on the ID and author

@@ -7,22 +7,10 @@ const app = express();
 
 weatherApiKey = process.env.weatherApiKey;
 
-
-// /capsules route
 router.get('/', isLoggedIn, function (req, res) {
-    // axios.get('https://api.spacexdata.com/v4/capsules')
-    //     .then(function (response) {
-    //         // handle success
-    //         return res.render('capsules', { capsules: response.data });
-    //     })
-    //     .catch(function (error) {
-    //         res.json({ message: 'Data not found. Please try again later.' });
-    //     });
 
-    // READ all capsules send capsules to 
     country.findAll()
         .then(countries => {
-
             favorite.findAll({
                 where: {
                     userId: req.user.get().id
@@ -32,42 +20,12 @@ router.get('/', isLoggedIn, function (req, res) {
                     const cleaned_countries = countries.map(c => c.toJSON());
                     res.render('countries/index', { countries: cleaned_countries, userFavorite });
                 });
-
-
         })
         .catch(err => {
             console.log('Error', err);
             res.render('no-result');
         });
 });
-
-
-// // /capsules/edit/:id -> go to the page that allows to edit
-// router.get('/edit/:id', function (req, res) {
-//     // find the capsule, and then go edit page
-//     capsule.findOne({
-//         where: { id: parseInt(req.params.id) }
-//     })
-//         .then(foundCapsule => {
-//             return res.render('capsules/edit', { capsule: foundCapsule });
-//         })
-//         .catch(err => {
-//             console.log('Error', err);
-//             res.render('no-result');
-//         });
-
-// });
-
-
-// // /capsules/new -> go to page to create a new capsule
-// router.get('/new', function (req, res) {
-//     return res.render('capsules/new');
-// });
-
-// // /capsule/search route
-// router.get('/search', function (req, res) {
-//     return res.render('capsules/search');
-// });
 
 router.get('/search', isLoggedIn, function (req, res) {
     country.findAll({ order: [['name', 'ASC']] })
@@ -83,7 +41,6 @@ router.get('/search', isLoggedIn, function (req, res) {
 });
 
 router.get('/detail/:name', isLoggedIn, function (req, res) {
-
     country.findOne({
         where: { name: req.params.name }
     })
