@@ -18,7 +18,7 @@ router.get('/', isLoggedIn, function (req, res) {
             })
                 .then(userFavorite => {
                     const cleaned_countries = countries.map(c => c.toJSON());
-                    res.render('countries/index', { countries: cleaned_countries, userFavorite });
+                    res.render('countries/index', { countries: cleaned_countries, userFavorite, });
                 });
         })
         .catch(err => {
@@ -111,18 +111,19 @@ router.get('/:name', isLoggedIn, function (req, res) {
 router.delete('/:name', isLoggedIn, function (req, res) {
     favorite.destroy({
         where: {
-            userId: req.user.get().id,
-            name: req.body.country
+            userId: req.user.id,
+            name: req.body.countryName
         }
-            .then(deleted => {
-                console.log('country name', req.body.country);
-                return res.redirect(`/countries/${req.body.country}`);
-            })
-            .catch(err => {
-                console.log('Errorrrrrrr', err);
-                // res.render('no-result');
-            })
-    });
+    })
+        .then(deleted => {
+            console.log('country name', req.body.countryName);
+            return res.redirect(`/countries/${req.body.countryName}`);
+        })
+        .catch(err => {
+            console.log('Errorrrrrrr', err);
+            // res.render('no-result');
+        });
+
 });
 
 

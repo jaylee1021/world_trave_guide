@@ -72,7 +72,6 @@ router.put('/edit/:id', isLoggedIn, function (req, res) {
         where: { id: req.params.id }
     })
         .then(numOfRowsChanged => {
-
             console.log('how many rows got updated?', numOfRowsChanged);
             res.redirect(`/profiles/${parseInt(req.params.id)}`);
         })
