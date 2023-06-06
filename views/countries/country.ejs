@@ -41,10 +41,8 @@
             <% } %>
 
             <% if (favoriteArray.includes(singleCountry.name)) { %>
-            <form method="POST" action="/favorites/favorite/<%= singleCountry.name%>/?_method=DELETE">
+            <form method="POST" action="/countries/<%= singleCountry.name %>?_method=DELETE">
                 <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
-                <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
-                <input type="hidden" name="countryContinents" value="<%=singleCountry.continents %>">
                 <button type="submit" class="btn btn-primary">Remove from Favorite</button>
             </form>
             <% } else {%>
