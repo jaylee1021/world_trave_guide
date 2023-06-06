@@ -75,8 +75,10 @@
               <div class="col-sm-12">
                 <a class="btn btn-info " target="__blank"
                   href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                <form method="POST" action="/profiles/<%= foundUser.id %>/?_method=DELETE" style="display: contents;">
-                  <input class="btn btn-info" type="submit" value="Delete">
+                <form method="POST" action="/profiles/delete/<%= foundUser.id %>">
+                  <input class="btn btn-danger" type="submit" value="Delete">
+
+                </form>
                 </form>
               </div>
             </div>

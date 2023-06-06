@@ -5,6 +5,8 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const { country, favorite, user } = require('../models');
 const app = express();
 
+weatherApiKey = process.env.weatherApiKey;
+
 
 // /capsules route
 router.get('/', isLoggedIn, function (req, res) {
@@ -86,7 +88,15 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-            res.render('countries/detail', { singleCountry: foundCountry });
+            console.log(foundCountry.capital);
+            axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=no`)
+                .then(weather => {
+                    const currentWeather = weather.data.current;
+                    res.render('countries/detail', { singleCountry: foundCountry, currentWeather });
+                })
+                .catch(err => {
+                    console.log('Error', err);
+                });
         })
         .catch(err => {
             console.log('Error', err);

@@ -7,11 +7,14 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const axios = require('axios');
+const methodOverride = require('method-override');
 
 // environment variables
 SECRET_SESSION = process.env.SECRET_SESSION;
 
 app.set('view engine', 'ejs');
+
+app.use(methodOverride('_method'));
 
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
@@ -48,6 +51,7 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/profiles', require('./controllers/profiles'));
 app.use('/countries', require('./controllers/countries'));
 app.use('/favorites', require('./controllers/favorites'));
+
 
 
 app.use(function (req, res, next) {

@@ -22,6 +22,27 @@ router.get('/:id', isLoggedIn, function (req, res) {
 
 });
 
+// DELETE /savedArticles/delete/:id - Delete a saved article
+router.delete('/:id', isLoggedIn, async (req, res) => {
+    try {
+        // Retrieve the article ID from the request parameters
+        const { id } = req.params;
+        const userId = req.user.id;
+        console.log('id', id);
+        console.log('userId', userId);
+        // Delete the article from the database or any other data source
+        await favorite.destroy({
+            where: { userId, id }, // Delete the article for the logged-in user based on the ID and author
+        });
+
+        // Redirect back to the saved articles page
+        res.redirect(`/favorites/${userId}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 router.post('/:id', isLoggedIn, function (req, res) {
     // const { id, name, email } = req.user.get();
     const userId = req.user.get().id;
@@ -51,25 +72,47 @@ router.post('/:id', isLoggedIn, function (req, res) {
         });
 });
 
-router.delete('/favorite', function (req, res) {
-    const userId = req.user.get().id;
-    favorite.destroy({
-        where: {
-            userId: userId,
+// POST /savedArticles/delete/:id - Delete a saved article
+// router.post('/delete/:id', isLoggedIn, async (req, res) => {
+//     try {
+//         // Retrieve the article ID from the request parameters
+//         const { id } = req.params;
+//         const userId = req.user.id;
+//         // Delete the article from the database or any other data source
+//         await favorite.destroy({
+//             where: { userId, id }, // Delete the article for the logged-in user based on the ID and author
+//         });
 
-            id: parseInt(req.params.id)
-        }
-    })
-        .then(numOfRowsDeleted => {
-            console.log('How many rows were deleted?', numOfRowsDeleted);
-            // redirect the user back to all members page /members
-            res.redirect('/capsules');
-        })
-        .catch(err => {
-            console.log('Error', err);
-            res.render('no-result');
-        });
-});
+//         // Redirect back to the saved articles page
+//         res.redirect(`/favorites/${userId}`);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+
+
+
+// router.delete('/favorite', function (req, res) {
+//     const userId = req.user.get().id;
+//     favorite.destroy({
+//         where: {
+//             userId: userId,
+
+//             id: parseInt(req.params.id)
+//         }
+//     })
+//         .then(numOfRowsDeleted => {
+//             console.log('How many rows were deleted?', numOfRowsDeleted);
+//             // redirect the user back to all members page /members
+//             res.redirect('/capsules');
+//         })
+//         .catch(err => {
+//             console.log('Error', err);
+//             res.render('no-result');
+//         });
+// });
 
 
 
