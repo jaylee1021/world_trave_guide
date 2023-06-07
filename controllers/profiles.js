@@ -34,7 +34,6 @@ router.get('/edit/:id', isLoggedIn, (req, res) => {
 });
 
 router.delete('/:id', isLoggedIn, (req, res) => {
-
     favorite.destroy({
         where: { userId: req.user.id }
     })
@@ -68,8 +67,6 @@ router.put('/edit/:id', isLoggedIn, function (req, res) {
 });
 
 router.put('/:id', isLoggedIn, function (req, res) {
-    // find the capsule, and then go edit page
-    console.log('form data', req.user.active);
 
     const parsed_user_data = { ...req.user };
 
@@ -79,7 +76,11 @@ router.put('/:id', isLoggedIn, function (req, res) {
         where: { id: req.params.id }
     })
         .then(() => {
-            res.redirect(`/profiles/${parseInt(req.params.id)}`);
+            req.logOut(function (err, next) {
+                if (err) { return next(err); }
+                req.flash('success', 'Account Deleted.  Hope you come back!');
+                res.redirect('/');
+            });
         })
         .catch(err => console.log('Error', err));
 });

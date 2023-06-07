@@ -67,10 +67,13 @@
             <div class="row">
               <div class="col-sm-12" style="display: flex; justify-content: space-between">
                 <a class="btn btn-info" href="/profiles/edit/<%=foundUser.id %>">Edit</a>
+
                 <form method="POST" action="/profiles/<%=foundUser.id%>?_method=DELETE">
                   <input class="btn btn-danger" type="submit" value="Delete All Favorites">
                 </form>
-                <form method="POST" action="/profiles/<%= foundUser.id %>/?_method=PUT">
+
+                <form method="POST" action="/profiles/<%= foundUser.id %>/?_method=PUT"
+                  onsubmit="return confirm('Are you sure you want to delete your profile?');">
                   <input class="btn btn-danger" type="submit" value="Delete Account">
                 </form>
               </div>
