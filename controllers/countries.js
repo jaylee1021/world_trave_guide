@@ -8,7 +8,6 @@ const app = express();
 weatherApiKey = process.env.weatherApiKey;
 
 router.get('/', isLoggedIn, function (req, res) {
-
     country.findAll()
         .then(countries => {
             favorite.findAll({
@@ -45,10 +44,11 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-            console.log(foundCountry.capital);
+
             axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=no`)
                 .then(weather => {
                     const currentWeather = weather.data.current;
+                    console.log(currentWeather);
                     res.render('countries/detail', { singleCountry: foundCountry, currentWeather });
                 })
                 .catch(err => {
@@ -125,75 +125,5 @@ router.delete('/:name', isLoggedIn, function (req, res) {
         });
 
 });
-
-
-
-// router.post('/new', function (req, res) {
-//     // create a capsule with the form data
-//     const parsed_capsule = { ...req.body };
-//     // change datatype for reuse_count and water_landings
-//     parsed_capsule.reuse_count = parseInt(req.body.reuse_count);
-//     parsed_capsule.water_landings = parseInt(req.body.water_landings);
-
-//     // create a capsule
-//     capsule.create(parsed_capsule)
-//         .then(createdCapsule => {
-//             console.log('capsule created', createdCapsule.toJSON());
-//             res.redirect('/capsules');
-//         })
-//         .catch(err => {
-//             console.log('Error', err);
-//             res.render('no-result');
-//         });
-// });
-
-
-
-// router.put('/edit/:id', function (req, res) {
-//     // find the capsule, and then go edit page
-//     console.log('form data', req.body);
-
-//     const parsed_capsule = { ...req.body };
-//     // change datatype for reuse_count and water_landings
-//     parsed_capsule.reuse_count = parseInt(req.body.reuse_count);
-//     parsed_capsule.water_landings = parseInt(req.body.water_landings);
-//     console.log('parsed_capsule: ', parsed_capsule);
-
-//     capsule.update(parsed_capsule, {
-//         where: { id: parseInt(req.params.id) }
-//     })
-//         .then(numOfRowsChanged => {
-//             console.log('how many rows got updated?', numOfRowsChanged);
-//             res.redirect(`/capsules/${parseInt(req.params.id)}`);
-//         })
-//         .catch(err => console.log('Error', err));
-//     // capsule.findOne({
-//     //     where: { id: parseInt(req.params.id) }
-//     // })
-//     // .then(foundCapsule => {
-//     //     // found capsule
-//     //     return res.render('capsules/edit', { capsule: foundCapsule });
-//     // })
-//     // .catch(err => {
-//     //     console.log('Error', err);
-//     //     res.render('no-result');
-//     // })
-// });
-
-// router.delete('/:id', function (req, res) {
-//     capsule.destroy({
-//         where: { id: parseInt(req.params.id) }
-//     })
-//         .then(numOfRowsDeleted => {
-//             console.log('How many rows were deleted?', numOfRowsDeleted);
-//             // redirect the user back to all members page /members
-//             res.redirect('/capsules');
-//         })
-//         .catch(err => {
-//             console.log('Error', err);
-//             res.render('no-result');
-//         });
-// });
-
 
 module.exports = router;

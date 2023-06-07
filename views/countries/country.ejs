@@ -23,7 +23,12 @@
             <img class="flag" src="<%= singleCountry.flags %>" alt="country's flag"
                 style="margin-top: 10px;  width: 500px;">
 
-            <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %></h2>
+            <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %> </h2>
+
+            <label>
+                <input type="radio" name="test" value="small" checked>
+                <img src="https://via.placeholder.com/40x60/0bf/fff&text=A" alt="Option 1">
+            </label>
             <a href="../countries/detail/<%= singleCountry.name %>">Details</a>
             <hr>
 

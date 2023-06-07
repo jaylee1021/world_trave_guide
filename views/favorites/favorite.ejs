@@ -20,8 +20,10 @@
                             <tr>
                                 <th scope="row"><%= x+1 %></th>
                                 <td><img class="flag" src="<%= singleUserFavorite.flag %>" alt="'s picture"
-                                        style="margin-top: 10px;  width: 100px;"></td>
-                                <td><%= singleUserFavorite.name %></td>
+                                        style="  width: 100px;"></td>
+                                <td><a
+                                        href="../countries/detail/<%= singleUserFavorite.name %>"><%= singleUserFavorite.name %></a>
+                                </td>
                                 <td><%= singleUserFavorite.continents %></td>
                                 <td>
                                     <form method="POST" action="/favorites/<%=singleUserFavorite.id%>?_method=DELETE">

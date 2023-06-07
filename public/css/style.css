@@ -88,3 +88,19 @@ body {
 .flag {
     border: 1px solid black;
 }
+
+.white-letter {
+    color: white;
+}
+
+.back-image {
+    background-image: url("/image/world_map.jpg");
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked+label {
+    border: 1px solid red;
+}

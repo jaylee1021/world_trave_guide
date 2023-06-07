@@ -10,16 +10,16 @@
                         <img class="flag" src="<%= singleCountry.flags %>" alt="country's flag"
                             style="margin-top: 10px;  width: 500px;">
                     </div>
-                    <div class="col-md-5">
-                        <div class="card-body">
-                            <p></p>
-                            <p class="card-text"> Capital: <%= singleCountry.capital %></p>
-                            <p class="card-text"> Continent: <%= singleCountry.continents %></p>
-                            <p class="card-text"> Population: <%= singleCountry.population %></p>
-                            <p class="card-text"> Currency: <%= singleCountry.currencies_name %> -
-                                <%= singleCountry.currencies %> </p>
-                            <p class="card-text"> Languages: <%= singleCountry.languages %></p>
-                        </div>
+                    <div class="col-md-5" style="margin: auto;">
+                        <!-- <div class="card-body"> -->
+
+                        <p class="card-text"> Capital: <%= singleCountry.capital %></p>
+                        <p class="card-text"> Continent: <%= singleCountry.continents %></p>
+                        <p class="card-text"> Population: <%= singleCountry.population %></p>
+                        <p class="card-text"> Currency: <%= singleCountry.currencies_name %> -
+                            <%= singleCountry.currencies %> </p>
+                        <p class="card-text"> Languages: <%= singleCountry.languages %></p>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -85,13 +85,34 @@
             <hr>
             <div class="card">
                 <div class="card-header text-bg-primary">
-                    Weather
+                    Current Weather in <%= singleCountry.capital %>, <%= singleCountry.name %>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title"><%= currentWeather.condition.text %></h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div>
+                    <table class="table" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Condition</th>
+                                <th scope="col">Temperature</th>
+                                <th scope="col">Feels Like C/F</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><%= currentWeather.condition.text %>
+                                    <img src="https:<%= currentWeather.condition.icon %>" alt="">
+                                </th>
+                                <td><%= currentWeather.temp_c %>C / <%= currentWeather.temp_f %>F
+                                </td>
+                                <td><%= currentWeather.feelslike_c %>C /
+                                    <%= currentWeather.feelslike_f %>F</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </figure>
     </div>

@@ -22,15 +22,14 @@ router.get('/:id', isLoggedIn, function (req, res) {
 
 });
 
-// DELETE /savedArticles/delete/:id - Delete a saved article
 router.delete('/:id', isLoggedIn, async (req, res) => {
     try {
-        // Retrieve the article ID from the request parameters
+
         const { id } = req.params;
         const userId = req.user.id;
-        // Delete the article from the database or any other data source
+
         await favorite.destroy({
-            where: { userId, id }, // Delete the article for the logged-in user based on the ID and author
+            where: { userId, id }
         });
 
         // Redirect back to the saved articles page
