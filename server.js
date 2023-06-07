@@ -29,9 +29,7 @@ app.use(session({
   saveUninitialized: true    // If we have a new session, we save it, therefore making that true
 }));
 
-app.use(function (req, res) {
-  res.status(404).render('404.jade');
-});
+
 
 // add passport
 app.use(passport.initialize());
@@ -58,6 +56,9 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(function (req, res) {
+  res.status(404).render('error-page');
+});
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
