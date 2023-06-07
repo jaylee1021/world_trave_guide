@@ -35,6 +35,7 @@ The Goal is to provide information about select country.
 1. All of the country data are `seeded` to local machine for faster access.
 2. Once country is selected, it will go through the database and output the necessary data.
 3. Also, Current weather information is provided directly from the weather api.
+4. Quote in the homepage is randomly picked from an array of quotes I've picked out on a separate js 
 
 ### API Calls
 Most of the data used in this app is from the country api.  All of the data are seeded from the country api for easy and fast access.
@@ -98,6 +99,42 @@ axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${f
     .catch(err => {
         console.log('Error', err);
     });
+```
+
+# Most used route
+Most route that would be used in this app is .get route for single country data since this is where the user would go first after searching for a country.
+For easy access, I have added another dropdown search box so the user doesn't have to go back to search page.
+```javascript
+router.get('/:name', isLoggedIn, function (req, res) {
+    country.findOne({
+        where: { name: req.params.name }
+    })
+        .then(foundCountry => {
+            favorite.findAll({
+                where: {
+                    userId: req.user.get().id
+                }
+            })
+                .then(userFavorite => {
+                    country.findAll({ order: [['name', 'ASC']] })
+                        .then(countries => {
+                            res.render('countries/country', { singleCountry: foundCountry, countries: countries, userFavorite });
+                        })
+                        .catch(err => {
+                            console.log('Error', err);
+                            res.render('error-page');
+                        });
+                })
+                .catch(err => {
+                    console.log('Error', err);
+                    res.render('error-page');
+                });
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+});
 ```
 
 # Attribution
