@@ -17,7 +17,7 @@ router.get('/:id', isLoggedIn, function (req, res) {
         })
         .catch(err => {
             console.log('Error', err);
-            // res.render('no-result');
+            res.render('error-page');
         });
 
 });
@@ -32,11 +32,10 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
             where: { userId, id }
         });
 
-        // Redirect back to the saved articles page
         res.redirect(`/favorites/${userId}`);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.render('error-page');
     }
 });
 
@@ -53,20 +52,18 @@ router.post('/:id', isLoggedIn, function (req, res) {
         }
     })
         .then(([favorite, created]) => {
-            console.log(favorite);
-            console.log('created????', created);
-            if (created === false) {
-                req.flash('present', `'${req.body.countryName}' already exists in your favorite list.`);
+            if (created === true) {
+                req.flash('added', `'${req.body.countryName}' added to your favorite list!`);
                 res.redirect(`/countries/${req.body.countryName}`);
             } else {
-                req.flash('added', `'${req.body.countryName}' added to your favorite list!`);
+                req.flash('removed', `'${req.body.countryName}' removed from your favorite list.`);
                 res.redirect(`/countries/${req.body.countryName}`);
             }
             // return res.redirect(`/countries/${req.body.countryName}`);
         })
         .catch(err => {
             console.log('Error', err);
-            // res.render('no-result');
+            res.render('error-page');
         });
 });
 

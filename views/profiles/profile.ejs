@@ -1,29 +1,29 @@
-<div class="container">
+<div>
   <div class="main-body">
     <div class="row gutters-sm">
-      <div class="col-md-4 mb-3">
-        <div class="card">
+      <div class="col-md-4 mb-5">
+        <div class="box-light">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
                 width="150">
               <div class="mt-3">
                 <h4><%= foundUser.name %></h4>
-                <p class="text-secondary mb-1">Full Stack Developer</p>
-                <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                <p class="title mb-1">Full Stack Developer</p>
+                <p class="title font-size-sm">Bay Area, San Francisco, CA</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-8">
-        <div class="card mb-3">
+        <div class="box-light mb-3">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Full Name</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 title">
                 <%= foundUser.name %>
               </div>
             </div>
@@ -32,7 +32,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Email</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 title">
                 <%= foundUser.email %>
               </div>
             </div>
@@ -41,7 +41,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Phone</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 title">
                 (239) 816-9029
               </div>
             </div>
@@ -50,7 +50,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Mobile</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 title">
                 (320) 380-4539
               </div>
             </div>
@@ -59,7 +59,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Address</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 title">
                 Bay Area, San Francisco, CA
               </div>
             </div>
@@ -68,7 +68,8 @@
               <div class="col-sm-12" style="display: flex; justify-content: space-between">
                 <a class="btn btn-info" href="/profiles/edit/<%=foundUser.id %>">Edit</a>
 
-                <form method="POST" action="/profiles/<%=foundUser.id%>?_method=DELETE">
+                <form method="POST" action="/profiles/<%=foundUser.id%>?_method=DELETE"
+                  onsubmit="return confirm('Are you sure you want to delete your favorite list?');">
                   <input class="btn btn-danger" type="submit" value="Delete All Favorites">
                 </form>
 
@@ -76,9 +77,11 @@
                   onsubmit="return confirm('Are you sure you want to delete your profile?');">
                   <input class="btn btn-danger" type="submit" value="Delete Account">
                 </form>
+
               </div>
             </div>
           </div>
+          <%- include('../partials/duplicate') %>
         </div>
       </div>
     </div>

@@ -1,12 +1,15 @@
+html,
+body {
+    height: 100%;
+    margin: 0px;
+}
+
 nav ul li {
     text-decoration: none;
     display: inline-block;
     margin-right: .3em;
 }
 
-h1 {
-    color: chartreuse;
-}
 
 .gradient-custom {
     /* fallback for old browsers */
@@ -20,10 +23,28 @@ h1 {
 }
 
 body {
+    min-height: 100%;
     margin-top: 20px;
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;
+    font-family: 'Geologica', sans-serif;
+
+}
+
+.second-body {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+
 }
 
 .main-body {
@@ -106,10 +127,26 @@ body {
 
 }
 
-input[type="radio"] {
+/* input[type="radio"] {
     display: none;
 }
 
 input[type="radio"]:checked+label {
     border: 1px solid red;
+} */
+
+.title {
+    text-align: center;
+    color: white;
+}
+
+.box-light {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+
+}
+
+.text-box {
+    background: transparent;
+    color: white
 }

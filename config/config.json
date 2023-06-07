@@ -1,11 +1,11 @@
 {
   "development": {
-    "database": "country_guide",
+    "database": "world_travel_guide",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "country_guide_test",
+    "database": "world_travel_guide_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

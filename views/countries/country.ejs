@@ -1,4 +1,4 @@
-<div class="card text-center">
+<div style="color:white">
 
     <div class="card-image">
         <figure class="image ">
@@ -25,19 +25,16 @@
 
             <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %> </h2>
 
-            <label>
-                <input type="radio" name="test" value="small" checked>
-                <img src="https://via.placeholder.com/40x60/0bf/fff&text=A" alt="Option 1">
-            </label>
-            <a href="../countries/detail/<%= singleCountry.name %>">Details</a>
+
+            <a href="../countries/detail/<%= singleCountry.name %>" style="color:white">Details</a>
             <hr>
 
-            <p class="card-text"> Capital: <%= singleCountry.capital %></p>
-            <p class="card-text"> Continent: <%= singleCountry.continents %></p>
-            <p class="card-text"> Population: <%= singleCountry.population %></p>
-            <p class="card-text"> Currency: <%= singleCountry.currencies_name %> -
-                <%= singleCountry.currencies %> </p>
-            <p class="card-text"> Languages: <%= singleCountry.languages %></p>
+            <h4 class="card-text"> Capital: <%= singleCountry.capital %></h4>
+            <h4 class="card-text"> Continent: <%= singleCountry.continents %></h4>
+            <h4 class="card-text"> Population: <%= singleCountry.population %></h4>
+            <h4 class="card-text"> Currency: <%= singleCountry.currencies_name %> -
+                <%= singleCountry.currencies %> </h4>
+            <h4 class="card-text"> Languages: <%= singleCountry.languages %></h4>
 
             <hr>
             <% const favoriteArray = [] %>
@@ -48,7 +45,7 @@
             <% if (favoriteArray.includes(singleCountry.name)) { %>
             <form method="POST" action="/countries/<%= singleCountry.name %>?_method=DELETE">
                 <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
-                <button type="submit" class="btn btn-primary">Remove from Favorite</button>
+                <button type="submit" class="btn btn-light">Remove from Favorite</button>
             </form>
             <% } else {%>
 
@@ -56,7 +53,7 @@
                 <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
                 <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
                 <input type="hidden" name="countryContinents" value="<%=singleCountry.continents %>">
-                <button type="submit" class="btn btn-primary">Add to Favorite</button>
+                <button type="submit" class="btn btn-outline-light">Add to Favorite</button>
             </form>
             <% } %>
         </figure>

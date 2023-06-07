@@ -1,24 +1,24 @@
-<div class="card text-center">
+<div class="box-light">
     <div class="card-image">
         <figure class="image ">
             <h2 class="mb-4 has-text-weight-medium"></h2>
             <hr>
             <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %></h2>
-            <div class="card mb-3" style="max-width: 1000px;">
+            <div>
                 <div class="row g-0">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <img class="flag" src="<%= singleCountry.flags %>" alt="country's flag"
                             style="margin-top: 10px;  width: 500px;">
                     </div>
                     <div class="col-md-5" style="margin: auto;">
                         <!-- <div class="card-body"> -->
 
-                        <p class="card-text"> Capital: <%= singleCountry.capital %></p>
-                        <p class="card-text"> Continent: <%= singleCountry.continents %></p>
-                        <p class="card-text"> Population: <%= singleCountry.population %></p>
-                        <p class="card-text"> Currency: <%= singleCountry.currencies_name %> -
-                            <%= singleCountry.currencies %> </p>
-                        <p class="card-text"> Languages: <%= singleCountry.languages %></p>
+                        <h5 class="card-text" style="margin:15px"> Capital: <%= singleCountry.capital %></h5>
+                        <h5 class="card-text"> Continent: <%= singleCountry.continents %></h5>
+                        <h5 class="card-text" style="margin:15px"> Population: <%= singleCountry.population %></h5>
+                        <h5 class="card-text"> Currency: <%= singleCountry.currencies_name %> -
+                            <%= singleCountry.currencies %> </h5>
+                        <h5 class="card-text" style="margin:15px"> Languages: <%= singleCountry.languages %></h5>
                         <!-- </div> -->
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
                             <p class="card-text">Official Name</p>
                             <h5 class="card-title"><%= singleCountry.official_name %>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
                             <p class="card-text">Other Names
                             </p>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
                             <p class="card-text">Region</p>
                             <h5 class="card-title"><%= singleCountry.region %>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
 
                             <p class="card-text">Sub-Region</p>
@@ -62,16 +62,17 @@
                     </div>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
                             <p class="card-text">Map</p>
-                            <h5 class="card-title"><a href="<%= singleCountry.maps %>">Google Maps</a>
+                            <h5 class="card-title"><a href="<%= singleCountry.maps %>" target="_blank">Google Maps</a>
                             </h5>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="box-light">
                         <div class="card-body">
 
                             <p class="card-text">Coat Of Arms</p>
@@ -82,10 +83,13 @@
                 </div>
 
             </div>
+
             <hr>
-            <div class="card">
-                <div class="card-header text-bg-primary">
-                    Current Weather in <%= singleCountry.capital %>, <%= singleCountry.name %>
+            <div class="box-light">
+                <div class="card-header text-bg-warning" style="padding: 10px">
+
+                    <h4>Current Weather in <%= singleCountry.capital %>, <%= singleCountry.name %></h4>
+
                 </div>
                 <div>
                     <table class="table" style="text-align: center;">
@@ -99,7 +103,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th><%= currentWeather.condition.text %>
+                                <th>h4<%= currentWeather.condition.text %>
                                     <img src="https:<%= currentWeather.condition.icon %>" alt="">
                                 </th>
                                 <td><%= currentWeather.temp_c %>C / <%= currentWeather.temp_f %>F

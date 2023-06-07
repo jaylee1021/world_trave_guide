@@ -29,6 +29,10 @@ app.use(session({
   saveUninitialized: true    // If we have a new session, we save it, therefore making that true
 }));
 
+app.use(function (req, res) {
+  res.status(404).render('404.jade');
+});
+
 // add passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -41,25 +45,18 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('/');
+  res.render('index');
 });
-
-// Add this above /auth controllers
-
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/profiles', require('./controllers/profiles'));
 app.use('/countries', require('./controllers/countries'));
 app.use('/favorites', require('./controllers/favorites'));
 
-
-
 app.use(function (req, res, next) {
   res.locals.message = req.flash();
   next();
 });
-
-
 
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {

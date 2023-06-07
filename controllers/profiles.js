@@ -16,6 +16,7 @@ router.get('/:id', isLoggedIn, (req, res) => {
         })
         .catch(err => {
             console.log('Error', err);
+            res.render('error-page');
         });
 });
 
@@ -30,6 +31,7 @@ router.get('/edit/:id', isLoggedIn, (req, res) => {
         })
         .catch(err => {
             console.log('Error', err);
+            res.render('error-page');
         });
 });
 
@@ -38,12 +40,18 @@ router.delete('/:id', isLoggedIn, (req, res) => {
         where: { userId: req.user.id }
     })
         .then((numOfRowsDeleted) => {
-            console.log('favorite deleted?', numOfRowsDeleted);
-            res.redirect(`/profiles/${parseInt(req.params.id)}`);
+            if (numOfRowsDeleted > 0) {
+                req.flash('removed', `Your favorite list is empty now`);
+                res.redirect(`/profiles/${parseInt(req.params.id)}`);
+            } else {
+                req.flash('removed', `Your favorite list is already empty`);
+                res.redirect(`/profiles/${parseInt(req.params.id)}`);
+            }
+
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send('Internal Server Error');
+            res.render('error-page');
         });
 });
 
@@ -63,7 +71,7 @@ router.put('/edit/:id', isLoggedIn, function (req, res) {
             console.log('how many rows got updated?', numOfRowsChanged);
             res.redirect(`/profiles/${parseInt(req.params.id)}`);
         })
-        .catch(err => console.log('Error', err));
+        .catch(err => { console.log('Error', err), res.render('error-page'); });
 });
 
 router.put('/:id', isLoggedIn, function (req, res) {
@@ -82,7 +90,7 @@ router.put('/:id', isLoggedIn, function (req, res) {
                 res.redirect('/');
             });
         })
-        .catch(err => console.log('Error', err));
+        .catch(err => { console.log('Error', err), res.render('error-page'); });
 });
 
 module.exports = router;

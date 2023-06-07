@@ -22,7 +22,7 @@ router.get('/', isLoggedIn, function (req, res) {
         })
         .catch(err => {
             console.log('Error', err);
-            res.render('no-result');
+            res.render('error-page');
         });
 });
 
@@ -36,6 +36,7 @@ router.get('/search', isLoggedIn, function (req, res) {
         })
         .catch(err => {
             console.log('Error', err);
+            res.render('error-page');
         });
 });
 
@@ -57,6 +58,7 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         })
         .catch(err => {
             console.log('Error', err);
+            res.render('error-page');
         });
 });
 
@@ -75,7 +77,7 @@ router.post('/search', isLoggedIn, function (req, res) {
         })
         .catch(err => {
             console.log('Error', err);
-            // res.render('no-result');
+            res.render('error-page');
         });
 
 });
@@ -97,14 +99,17 @@ router.get('/:name', isLoggedIn, function (req, res) {
                         })
                         .catch(err => {
                             console.log('Error', err);
+                            res.render('error-page');
                         });
                 })
                 .catch(err => {
                     console.log('Error', err);
+                    res.render('error-page');
                 });
         })
         .catch(err => {
             console.log('Error', err);
+            res.render('error-page');
         });
 });
 
@@ -116,12 +121,12 @@ router.delete('/:name', isLoggedIn, function (req, res) {
         }
     })
         .then(deleted => {
-            console.log('country name', req.body.countryName);
+            req.flash('removed', `'${req.body.countryName}' removed from your favorite list.`);
             return res.redirect(`/countries/${req.body.countryName}`);
         })
         .catch(err => {
             console.log('Errorrrrrrr', err);
-            // res.render('no-result');
+            res.render('error-page');
         });
 
 });

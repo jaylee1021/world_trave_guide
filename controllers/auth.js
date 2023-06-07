@@ -22,7 +22,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/countries/search',
+  successRedirect: '/',
   failureRedirect: '/auth/login',
   successFlash: 'Welcome back ...',
   failureFlash: 'Either email or password is incorrect'
