@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('auth/login');
+  res.render('/');
 });
 
 // Add this above /auth controllers
