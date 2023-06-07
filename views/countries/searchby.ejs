@@ -1,7 +1,7 @@
 <div>
     <figure class="image ">
 
-        <form method="POST" action="/countries/search">
+        <form method="POST" action="/countries/searchby">
             <div class="form-group column is-12">
                 <div style="color: white">
                     <h2>World Travel Guide</h2>
@@ -11,18 +11,27 @@
                 </div>
 
                 <div class=" input-group" style="margin-top: 50px;">
-                    <select class="form-select" id="validationDefault04" id="country" name="country"
+
+                    <select class="form-select" id="validationDefault04" id="field" name="field"
                         aria-label="Example select with button addon" style="background-color: rgba(255,255,255,.5);"
                         required>
                         <option selected disabled value="">Choose a Country</option>
-                        <% for( let x = 0; x < countries.length; x++ ) { %>
-                        <% country = countries[x] %>
-                        <option value="<%=country.name%>"><%=country.name %></option>
-                        <% } %>
+                        <option value="region">Region</option>
+                        <option value="subregion">Subregion</option>
+                        <option value="unmember">UN Member</option>
+
                     </select>
+                </div>
+                <br>
+                <div>
+                    <div class=" form-outline form-white mb-4">
+                        <input type="text" id="item" name="item" class="form-control form-control-lg text-box"
+                            placeholder="Type in criteria" required />
+
+                    </div>
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
-                <a href="./searchby" class="title">Search by...</a>
+
             </div>
         </form>
     </figure>

@@ -40,6 +40,22 @@ router.get('/search', isLoggedIn, function (req, res) {
         });
 });
 
+router.get('/searchby', isLoggedIn, function (req, res) {
+    country.findAll({ order: [['name', 'ASC']] })
+        .then(countries => {
+
+            const cleaned_countries = countries.map(c => c.toJSON());
+            // send as json
+            res.render('countries/searchby', { countries: cleaned_countries });
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+});
+
+
+
 router.get('/detail/:name', isLoggedIn, function (req, res) {
     country.findOne({
         where: { name: req.params.name }
@@ -74,6 +90,46 @@ router.post('/search', isLoggedIn, function (req, res) {
             return res.redirect(`/countries/${req.body.country}`);
             // }
             // res.render('countries/search', { countries: cleaned_countries });
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+
+});
+
+router.post('/searchby', isLoggedIn, function (req, res) {
+    country.findAll()
+        .then(countries => {
+            const cleaned_countries = countries.map(c => c.toJSON());
+            const result = [];
+            switch (req.body.field) {
+                case 'region':
+                    for (let i = 0; i < cleaned_countries.length; i++) {
+                        let country = cleaned_countries[i];
+                        if (country.region.toLowerCase() === req.body.item.toLowerCase()) {
+                            result.push(country);
+                        }
+                    }
+                    break;
+                case 'subregion':
+                    for (let i = 0; i < cleaned_countries.length; i++) {
+                        let country = cleaned_countries[i];
+                        if (country.subregion.toLowerCase() === req.body.item.toLowerCase()) {
+                            result.push(country);
+                        }
+                    }
+                    break;
+                case 'unmember':
+                    for (let i = 0; i < cleaned_countries.length; i++) {
+                        let country = cleaned_countries[i];
+                        if (country.unMember) {
+                            result.push(country);
+                        }
+                    }
+                    break;
+            }
+            res.render('countries/searchby-result', { countries: result });
         })
         .catch(err => {
             console.log('Error', err);

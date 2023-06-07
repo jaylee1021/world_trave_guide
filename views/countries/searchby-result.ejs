@@ -1,0 +1,39 @@
+<!-- <div class="card text-center">
+    <div class="card-image"> -->
+<figure class="image " style="color:white">
+    <div class="form-group column is-12">
+        <div class="columns is-multiline" <div class="form-group column is-12">
+            <label for="country"></label>
+            <table class="table table-hover  " style="width: 700px; color:white">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Flag</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Subregion</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let x = 0; x < countries.length; x++ ) { %>
+                    <% let country = countries[x] %>
+                    <tr>
+                        <th scope="row"><%= x+1 %></th>
+                        <td><img class="flag" src="<%= country.flags %>" alt="'s picture" style="  width: 100px;"></td>
+                        <td><a href="../countries/detail/<%= country.name %>"
+                                style="color:white"><%= country.name %></a>
+                        </td>
+                        <td><%= country.region %></td>
+                        <td><%= country.subregion %></td>
+
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</figure>
+</div>
+</div>
