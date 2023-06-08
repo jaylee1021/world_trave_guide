@@ -54,15 +54,13 @@ router.get('/searchby', isLoggedIn, function (req, res) {
         });
 });
 
-
-
 router.get('/detail/:name', isLoggedIn, function (req, res) {
     country.findOne({
         where: { name: req.params.name }
     })
         .then(foundCountry => {
 
-            axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=no`)
+            axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=yes`)
                 .then(weather => {
                     const currentWeather = weather.data.current;
                     console.log(currentWeather);
@@ -78,18 +76,10 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         });
 });
 
-
 router.post('/search', isLoggedIn, function (req, res) {
     country.findAll()
         .then(countries => {
-            console.log('req.body', req.body);
-            // if (!req.body.country) {
-            //     req.flash('error', 'Select a Country');
-            //     return res.redirect('search');
-            // } else {
             return res.redirect(`/countries/${req.body.country}`);
-            // }
-            // res.render('countries/search', { countries: cleaned_countries });
         })
         .catch(err => {
             console.log('Error', err);
