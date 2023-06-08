@@ -44,11 +44,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get('/', (req, res) => {
-//   res.render('index');
-// });
-app.get('/', function (req, res) {
 
+app.get('/', function (req, res) {
   quote.findAll()
     .then(foundQuotes => {
       const cleaned_quotes = foundQuotes.map(c => c.toJSON());
@@ -80,7 +77,7 @@ app.use(function (req, res, next) {
 app.use(function (req, res) {
   res.status(404).render('error-page');
 });
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
 });

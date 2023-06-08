@@ -16,7 +16,7 @@ router.get('/:id', isLoggedIn, (req, res) => {
         })
         .catch(err => {
             console.log('Error', err);
-            res.render('error-page');
+
         });
 });
 
@@ -31,7 +31,7 @@ router.get('/edit/:id', isLoggedIn, (req, res) => {
         })
         .catch(err => {
             console.log('Error', err);
-            res.render('error-page');
+
         });
 });
 
@@ -51,7 +51,7 @@ router.delete('/:id', isLoggedIn, (req, res) => {
         })
         .catch((error) => {
             console.error(error);
-            res.render('error-page');
+
         });
 });
 
@@ -71,7 +71,7 @@ router.put('/edit/:id', isLoggedIn, function (req, res) {
             console.log('how many rows got updated?', numOfRowsChanged);
             res.redirect(`/profiles/${parseInt(req.params.id)}`);
         })
-        .catch(err => { console.log('Error', err), res.render('error-page'); });
+        .catch(err => { console.log('Error', err); });
 });
 
 router.put('/:id', isLoggedIn, function (req, res) {
@@ -90,7 +90,7 @@ router.put('/:id', isLoggedIn, function (req, res) {
                 res.redirect('/');
             });
         })
-        .catch(err => { console.log('Error', err), res.render('error-page'); });
+        .catch(err => { console.log('Error', err); });
 });
 
 module.exports = router;
