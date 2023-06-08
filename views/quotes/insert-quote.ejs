@@ -1,0 +1,33 @@
+<div>
+    <figure class="image ">
+
+        <form method="POST" action="/quotes/insert-quote">
+            <div class="form-group column is-12">
+                <div style="color: white">
+                    <h2>World Travel Guide</h2>
+                    <p></p>
+                    <h5>Select a category from dropdown menu to start
+                    </h5>
+                </div>
+
+                <div>
+                    <div class=" form-outline form-white mb-4">
+                        <input type="text" id="statement" name="statement" class="form-control form-control-lg text-box"
+                            placeholder="Type in Quote" required />
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div class=" form-outline form-white mb-4">
+                        <input type="text" id="author" name="author" class="form-control form-control-lg text-box"
+                            placeholder="Type in the Author" required />
+
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </div>
+                <br>
+                <div><%- include('../partials/duplicate') %></div>
+            </div>
+        </form>
+    </figure>
+</div>

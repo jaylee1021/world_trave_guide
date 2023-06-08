@@ -9,6 +9,8 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const axios = require('axios');
 const methodOverride = require('method-override');
 
+const { country, favorite, user, quote } = require('./models');
+
 // environment variables
 SECRET_SESSION = process.env.SECRET_SESSION;
 
@@ -42,14 +44,33 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.render('index');
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
+app.get('/', function (req, res) {
+
+  quote.findAll()
+    .then(foundQuotes => {
+      const cleaned_quotes = foundQuotes.map(c => c.toJSON());
+      console.log(cleaned_quotes.length);
+      let random_num = Math.floor(Math.random() * cleaned_quotes.length);
+      let quote_export = cleaned_quotes[random_num];
+      return res.render('index', { quotes: quote_export });
+    })
+    .catch(err => {
+      console.log('Error', err);
+      res.render('error-page');
+    });
+
 });
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/profiles', require('./controllers/profiles'));
 app.use('/countries', require('./controllers/countries'));
 app.use('/favorites', require('./controllers/favorites'));
+app.use('/quotes', require('./controllers/quotes'));
+
+
 
 app.use(function (req, res, next) {
   res.locals.message = req.flash();

@@ -1,11 +1,14 @@
-<body onload="changeQuote('quoteline')">
+<body>
     <div style="display: block">
         <div>
             <h1 class="title">World Travel Guide</h1>
         </div>
         <br>
         <div id="quoteId">
-            <h3 class="title" id="quoteline" name="quoteline">dd</h3>
+            <h3 class="title" id="quoteline" name="quoteline">"<%= quotes.statement %>." - <%= quotes.author %></h3>
         </div>
+
     </div>
 </body>
+
+<!-- onload="changeQuote('quoteline')" -->
