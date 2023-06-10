@@ -1,0 +1,42 @@
+<!-- <div class="card text-center">
+    <div class="card-image"> -->
+<figure class="image " style="color:white">
+    <div class="form-group column is-12">
+        <div class="columns is-multiline" <div class="form-group column is-12">
+            <label for="country"></label>
+            <table class="table" style="width: 700px; color:white">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Quote</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let x = 0; x < allQuotes.length; x++ ) { %>
+                    <% let singleQuote = allQuotes[x] %>
+                    <tr>
+                        <th scope="row"><%= x+1 %></th>
+                        <td><%= singleQuote.statement %></td>
+                        <td><%= singleQuote.author %></td>
+                        <% if (allQuotes.length < 2) { %>
+                        <td> </td>
+                        <% } else { %>
+
+                        <td>
+                            <form method="POST" action="/quotes/<%=singleQuote.id%>?_method=DELETE">
+                                <input class="btn btn-outline-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</figure>
+</div>
+</div>

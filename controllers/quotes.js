@@ -24,4 +24,35 @@ router.post('/insert-quote', isLoggedIn, function (req, res) {
         });
 });
 
+router.get('/list-of-quotes', isLoggedIn, function (req, res) {
+
+    quote.findAll()
+        .then(foundQuotes => {
+
+            const cleaned_quotes = foundQuotes.map(c => c.toJSON());
+
+            return res.render('quotes/list-of-quotes', { allQuotes: cleaned_quotes });
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+
+});
+
+router.delete('/:id', isLoggedIn, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await quote.destroy({
+            where: { id }
+        });
+
+        res.redirect('/quotes/list-of-quotes');
+    } catch (error) {
+        console.error(error);
+        res.render('error-page');
+    }
+});
+
 module.exports = router;
