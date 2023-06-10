@@ -28,6 +28,7 @@
                 <iframe width='100%' height='400px' src="<%= mapUrl %>" title="Street view Map"
                     style="border: none;"></iframe>
             </div>
+            <br>
             <div class="row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <div class="box-light">
@@ -107,7 +108,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th>h4<%= currentWeather.condition.text %>
+                                <th><%= currentWeather.condition.text %>
                                     <img src="https:<%= currentWeather.condition.icon %>" alt="">
                                 </th>
                                 <td><%= currentWeather.temp_c %>C / <%= currentWeather.temp_f %>F
