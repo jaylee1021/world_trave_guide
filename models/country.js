@@ -23,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     capital: DataTypes.STRING,
     altSpellings: DataTypes.STRING,
     region: DataTypes.STRING,
+    lat: DataTypes.FLOAT,
+    lng: DataTypes.FLOAT,
     subregion: DataTypes.STRING,
     languages: DataTypes.STRING,
     area: DataTypes.INTEGER,

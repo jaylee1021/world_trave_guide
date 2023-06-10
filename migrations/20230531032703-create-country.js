@@ -36,6 +36,12 @@ module.exports = {
       region: {
         type: Sequelize.STRING
       },
+      lat: {
+        type: Sequelize.FLOAT
+      },
+      lng: {
+        type: Sequelize.FLOAT
+      },
       subregion: {
         type: Sequelize.STRING
       },

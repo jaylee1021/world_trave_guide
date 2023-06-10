@@ -55,9 +55,8 @@ router.delete('/:id', isLoggedIn, (req, res) => {
         });
 });
 
+
 router.put('/edit/:id', isLoggedIn, function (req, res) {
-    // find the capsule, and then go edit page
-    console.log('form data', req.body);
 
     const parsed_user_data = { ...req.body };
 
@@ -86,7 +85,7 @@ router.put('/:id', isLoggedIn, function (req, res) {
         .then(() => {
             req.logOut(function (err, next) {
                 if (err) { return next(err); }
-                req.flash('success', 'Account Deleted.  Hope you come back!');
+                req.flash('success', 'Account Deactivated.  Hope you come back!');
                 res.redirect('/');
             });
         })

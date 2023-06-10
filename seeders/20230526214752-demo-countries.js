@@ -16,6 +16,7 @@ module.exports = {
     */
     await axios.get('https://restcountries.com/v3.1/all')
       .then(async response => {
+        // console.log(response.data);
         const countries = response.data.map(c => {
           let currencies;
           let currencies_name;
@@ -42,6 +43,8 @@ module.exports = {
             capital: capital,
             altSpellings: c.altSpellings.join(', '),
             region: c.region,
+            lat: c.latlng[0],
+            lng: c.latlng[1],
             subregion: c.subregion,
             languages: languages,
             area: c.area,
@@ -57,7 +60,7 @@ module.exports = {
           return result;
         });
         console.log('new country', countries);
-        // await queryInterface.bulkInsert('countries', countries, {});
+        await queryInterface.bulkInsert('countries', countries, {});
       })
       .catch(err => console.log(err));
   },

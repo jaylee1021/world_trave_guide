@@ -6,6 +6,7 @@ const { country, favorite, user } = require('../models');
 const app = express();
 
 weatherApiKey = process.env.weatherApiKey;
+mapApiKey = process.env.mapApiKey;
 
 router.get('/', isLoggedIn, function (req, res) {
     country.findAll()
@@ -59,7 +60,7 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-
+            const mapUrl = `https://api.mapbox.com/styles/v1/randomdori/clipiz7bc009l01od118t14yz.html?title=view&access_token=${mapApiKey}&zoomwheel=true&fresh=true#3.78/39.13/-96.67`;
             axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=yes`)
                 .then(weather => {
                     const currentWeather = weather.data.current;
