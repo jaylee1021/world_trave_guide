@@ -157,10 +157,23 @@ input[type="radio"]:checked+label {
     border: 1px solid orange;
 }
 
+.detail-title {
+    padding: 0 5px;
+    background-clip: content-box;
+    height: 40px;
+    border-radius: 20px;
+
+}
+
 .bordersss {
     width: 50%;
-    border: 10px solid black;
+    /* border: 10px solid black; */
+    border-left: 10px solid;
+    border-bottom: 10px solid;
     border-color: transparent;
-    /* background-color: white; */
-    margin: 50px
+    /* padding: 15px; */
+    /* background: #EAF0F6; */
+    background-clip: content-box;
+    /* box-shadow: inset 0 0 0 15px #FF7A59; */
+
 }
