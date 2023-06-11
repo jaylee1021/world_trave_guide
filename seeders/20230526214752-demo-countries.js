@@ -16,12 +16,13 @@ module.exports = {
     */
     await axios.get('https://restcountries.com/v3.1/all')
       .then(async response => {
-        // console.log(response.data);
+
         const countries = response.data.map(c => {
           let currencies;
           let currencies_name;
           let capital;
           let languages;
+          let borders;
           if (c.currencies) {
             currencies = Object.keys(c.currencies)[0];
             currencies_name = c.currencies[Object.keys(c.currencies)[0]].name;
@@ -32,21 +33,27 @@ module.exports = {
           if (c.languages) {
             languages = Object.values(c.languages).toString().split(',').join(', ');
           }
+          if (c.borders) {
+            borders = Object.values(c.borders).toString().split(',').join(', ');
+          }
           // console.log(currencies, currencies_name, capital, languages);
           const result = {
             name: c.name.common,
             official_name: c.name.official,
+            cca3: c.cca3,
             independent: c.independent,
             unMember: c.unMember,
             currencies: currencies,
             currencies_name: currencies_name,
             capital: capital,
             altSpellings: c.altSpellings.join(', '),
+            languages: languages,
             region: c.region,
+            subregion: c.subregion,
             lat: c.latlng[0],
             lng: c.latlng[1],
-            subregion: c.subregion,
-            languages: languages,
+            borders: borders,
+            fifa: c.fifa,
             area: c.area,
             maps: c.maps.googleMaps,
             population: c.population,

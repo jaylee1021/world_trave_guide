@@ -70,10 +70,18 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
                         }
                     })
                         .then(userFavorite => {
-                            const currentWeather = weather.data.current;
-                            console.log(currentWeather);
-                            res.render('countries/detail', { singleCountry: foundCountry, currentWeather, mapUrl, userFavorite });
-                        }).catch(err => {
+                            country.findAll()
+                                .then(allCountries => {
+                                    const currentWeather = weather.data.current;
+                                    console.log(currentWeather);
+                                    res.render('countries/detail', { singleCountry: foundCountry, currentWeather, mapUrl, userFavorite, allCountries });
+                                })
+                                .catch(err => {
+                                    console.log('Error', err);
+                                });
+
+                        })
+                        .catch(err => {
                             console.log('Error', err);
                         });
 

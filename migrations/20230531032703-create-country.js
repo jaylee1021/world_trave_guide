@@ -15,6 +15,9 @@ module.exports = {
       official_name: {
         type: Sequelize.STRING
       },
+      cca3: {
+        type: Sequelize.STRING
+      },
       independent: {
         type: Sequelize.BOOLEAN
       },
@@ -33,7 +36,13 @@ module.exports = {
       altSpellings: {
         type: Sequelize.STRING
       },
+      languages: {
+        type: Sequelize.STRING
+      },
       region: {
+        type: Sequelize.STRING
+      },
+      subregion: {
         type: Sequelize.STRING
       },
       lat: {
@@ -42,10 +51,10 @@ module.exports = {
       lng: {
         type: Sequelize.FLOAT
       },
-      subregion: {
+      borders: {
         type: Sequelize.STRING
       },
-      languages: {
+      fifa: {
         type: Sequelize.STRING
       },
       area: {

@@ -5,7 +5,7 @@
     <div class="card-image">
         <figure class="image ">
             <h2 class="mb-4 has-text-weight-medium"></h2>
-            <hr>
+
             <h2 class="mb-4 has-text-weight-medium "><%= singleCountry.name %></h2>
             <div>
                 <div class="row g-0">
@@ -26,122 +26,161 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <br>
+
+
             <div class="row">
                 <iframe width='100%' height='400px' src="<%= mapUrl %>" title="Street view Map"
                     style="border: none;"></iframe>
             </div>
             <br>
-            <div class="row">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="box-light">
-                        <div class="card-body">
-                            <p class="card-text">Official Name</p>
-                            <h5 class="card-title"><%= singleCountry.official_name %>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="box-light">
-                        <div class="card-body">
-                            <p class="card-text">Other Names
-                            </p>
-                            <h5 class="card-title"><%= singleCountry.altSpellings %></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="box-light">
-                        <div class="card-body">
-                            <p class="card-text">Region</p>
-                            <h5 class="card-title"><%= singleCountry.region %>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="box-light">
-                        <div class="card-body">
+            <table class="tableee">
+                <thead>
 
-                            <p class="card-text">Sub-Region</p>
-                            <h5 class="card-title"><%= singleCountry.subregion %></h5>
-                        </div>
+                </thead>
+                <tbody>
+                    <div class="row">
+                        <tr>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Official Name</p>
+                                            <h5 class="card-title"><%= singleCountry.official_name %>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Other Names
+                                            </p>
+                                            <h5 class="card-title"><%= singleCountry.altSpellings %></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Region</p>
+                                            <h5 class="card-title"><%= singleCountry.region %>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Sub-Region</p>
+                                            <h5 class="card-title"><%= singleCountry.subregion %></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Favorite</p>
+                                            <% const favoriteArray = [] %>
+                                            <% for( let x = 0; x < userFavorite.length; x++ ) { %>
+                                            <% favoriteArray.push(userFavorite[x].name) %>
+                                            <% } %>
+                                            <% if (favoriteArray.includes(singleCountry.name)) { %>
+                                            <form method="POST"
+                                                action="/countries/detail/<%= singleCountry.name %>?_method=DELETE">
+                                                <input type="hidden" name="countryName"
+                                                    value="<%=singleCountry.name %>">
+                                                <button type="submit" class="btn btn-light">Remove from
+                                                    Favorite</button>
+                                            </form>
+                                            <% } else {%>
+                                            <form method="POST" action="/countries/detail/<%= singleCountry.name %>">
+                                                <input type="hidden" name="countryName"
+                                                    value="<%=singleCountry.name %>">
+                                                <input type="hidden" name="countryFlag"
+                                                    value="<%=singleCountry.flags %>">
+                                                <input type="hidden" name="countryContinents"
+                                                    value="<%=singleCountry.continents %>">
+                                                <button type="submit" class="btn btn-outline-light">Add to
+                                                    Favorite</button>
+                                            </form>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="bordersss">
+                                <div class="">
+                                    <div class="box-light">
+                                        <div class="card-body">
+                                            <p class="card-text">Coat Of Arms</p>
+                                            <h5 class="card-title"><img src="<%= singleCountry.coatOfArms %>" alt=""
+                                                    style="width: 100px;"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td ">
+                        </tr>
                     </div>
-                </div>
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="box-light">
-                        <div class="card-body">
-                            <p class="card-text">Favorite</p>
-                            <% const favoriteArray = [] %>
-                            <% for( let x = 0; x < userFavorite.length; x++ ) { %>
-                            <% favoriteArray.push(userFavorite[x].name) %>
-                            <% } %>
-                            <% if (favoriteArray.includes(singleCountry.name)) { %>
-                            <form method="POST" action="/countries/detail/<%= singleCountry.name %>?_method=DELETE">
-                                <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
-                                <button type="submit" class="btn btn-light">Remove from Favorite</button>
-                            </form>
-                            <% } else {%>
-
-                            <form method="POST" action="/countries/detail/<%= singleCountry.name %>">
-                                <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
-                                <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
-                                <input type="hidden" name="countryContinents" value="<%=singleCountry.continents %>">
-                                <button type="submit" class="btn btn-outline-light">Add to Favorite</button>
-                            </form>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="box-light">
-                        <div class="card-body">
-
-                            <p class="card-text">Coat Of Arms</p>
-                            <h5 class="card-title"><img src="<%= singleCountry.coatOfArms %>" alt=""
-                                    style="width: 100px;"></h5>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
+                </tbody>
+            </table>
             <hr>
-            <div class="box-light">
-                <div class="card-header text-bg-warning" style="padding: 10px">
 
-                    <h4>Current Weather in <%= singleCountry.capital %>, <%= singleCountry.name %></h4>
 
-                </div>
-                <div>
-                    <table class="table" style="text-align: center; background-color:white">
-                        <thead>
-                            <tr>
-                                <th scope="col">Condition</th>
-                                <th scope="col">Temperature</th>
-                                <th scope="col">Feels Like</th>
+            <% let bordersSplit = singleCountry.borders.split(', ') %>
+            <% const result = [] %>
+            <% for( let x = 0; x < bordersSplit.length; x++ ) { %>
+            <% let borders = bordersSplit[x] %>
+            <% for( let y = 0; y < allCountries.length; y++ ) { %>
+            <% let country = allCountries[y] %>
+            <% if (borders === country.cca3) { %>
+            <% result.push(country.name) %>
+            <% } %>
+            <% } %>
+            <% } %>
+            <%= result.toString().split(',').join(', ') %>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th><%= currentWeather.condition.text %>
-                                    <img src="https:<%= currentWeather.condition.icon %>" alt="">
-                                </th>
-                                <td><%= currentWeather.temp_c %>C / <%= currentWeather.temp_f %>F
-                                </td>
-                                <td><%= currentWeather.feelslike_c %>C /
-                                    <%= currentWeather.feelslike_f %>F</td>
+            <!-- weather data -->
+            <div class=" box-light">
+                            <div class="card-header text-bg-warning" style="padding: 10px">
+                                <h4>Current Weather in <%= singleCountry.capital %>, <%= singleCountry.name %></h4>
+                            </div>
+                            <div>
+                                <table class="table" style="text-align: center; background-color:white;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Condition</th>
+                                            <th scope="col">Temperature</th>
+                                            <th scope="col">Feels Like</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th><%= currentWeather.condition.text %>
+                                                <img src="https:<%= currentWeather.condition.icon %>" alt="">
+                                            </th>
+                                            <td><%= currentWeather.temp_c %>C / <%= currentWeather.temp_f %>F
+                                            </td>
+                                            <td><%= currentWeather.feelslike_c %>C /
+                                                <%= currentWeather.feelslike_f %>F</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+                    </div>
         </figure>
     </div>
 </div>
