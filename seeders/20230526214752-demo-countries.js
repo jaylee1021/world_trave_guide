@@ -59,8 +59,8 @@ module.exports = {
           };
           return result;
         });
-        // console.log('new country', countries);
-        // await queryInterface.bulkInsert('countries', countries, {});
+        console.log('new country', countries);
+        await queryInterface.bulkInsert('countries', countries, {});
       })
       .catch(err => console.log(err));
   },

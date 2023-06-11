@@ -1,3 +1,6 @@
+<head>
+    <title><%= singleCountry.name %></title>
+</head>
 <div class="box-light">
     <div class="card-image">
         <figure class="image ">
@@ -70,8 +73,20 @@
                     <div class="box-light">
                         <div class="card-body">
                             <p class="card-text">Map</p>
-                            <h5 class="card-title"><a href="<%= singleCountry.maps %>" target="_blank">Google Maps</a>
-                            </h5>
+                            <% if (favoriteArray.includes(singleCountry.name)) { %>
+                            <form method="POST" action="/countries/<%= singleCountry.name %>?_method=DELETE">
+                                <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
+                                <button type="submit" class="btn btn-light">Remove from Favorite</button>
+                            </form>
+                            <% } else {%>
+
+                            <form method="POST" action="/favorites/favorite">
+                                <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
+                                <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
+                                <input type="hidden" name="countryContinents" value="<%=singleCountry.continents %>">
+                                <button type="submit" class="btn btn-outline-light">Add to Favorite</button>
+                            </form>
+                            <% } %>
                         </div>
                     </div>
                 </div>

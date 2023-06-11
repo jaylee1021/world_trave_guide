@@ -19,11 +19,12 @@ router.get('/', isLoggedIn, function (req, res) {
                 .then(userFavorite => {
                     const cleaned_countries = countries.map(c => c.toJSON());
                     res.render('countries/index', { countries: cleaned_countries, userFavorite, });
+                }).catch(err => {
+                    console.log('Error', err);
                 });
         })
         .catch(err => {
             console.log('Error', err);
-            res.render('error-page');
         });
 });
 
@@ -63,6 +64,7 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
             const mapUrl = `https://api.mapbox.com/styles/v1/randomdori/clipiz7bc009l01od118t14yz.html?title=false&access_token=${mapApiKey}&zoomwheel=true#4/${foundCountry.lat}/${foundCountry.lng}`;
             axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=yes`)
                 .then(weather => {
+
                     const currentWeather = weather.data.current;
                     console.log(currentWeather);
                     res.render('countries/detail', { singleCountry: foundCountry, currentWeather, mapUrl });
