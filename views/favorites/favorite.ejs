@@ -6,6 +6,13 @@
         <div class="columns is-multiline" <div class="form-group column is-12">
             <label for="country"></label>
             <table class="table table-hover  " style="width: 700px; color:white">
+                <% if (userFavorite.length < 1) { %>
+                <h3>The list is empty</h3>
+                <a href="../countries/search">
+                    <h3 style="color: white;">Let's go search for a country!</h3>
+                </a>
+                <% } else { %>
+
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -34,6 +41,7 @@
                     </tr>
                     <% } %>
                 </tbody>
+                <% } %>
             </table>
         </div>
     </div>
