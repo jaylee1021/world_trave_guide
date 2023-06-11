@@ -61,13 +61,22 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
         where: { name: req.params.name }
     })
         .then(foundCountry => {
-            const mapUrl = `https://api.mapbox.com/styles/v1/randomdori/clipiz7bc009l01od118t14yz.html?title=false&access_token=${mapApiKey}&zoomwheel=true#4/${foundCountry.lat}/${foundCountry.lng}`;
+            const mapUrl = `https://api.mapbox.com/styles/v1/randomdori/clipiz7bc009l01od118t14yz.html?title=false&access_token=${mapApiKey}&zoomwheel=true#7/${foundCountry.lat}/${foundCountry.lng}`;
             axios.get(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${foundCountry.capital}&aqi=yes`)
                 .then(weather => {
+                    favorite.findAll({
+                        where: {
+                            userId: req.user.id
+                        }
+                    })
+                        .then(userFavorite => {
+                            const currentWeather = weather.data.current;
+                            console.log(currentWeather);
+                            res.render('countries/detail', { singleCountry: foundCountry, currentWeather, mapUrl, userFavorite });
+                        }).catch(err => {
+                            console.log('Error', err);
+                        });
 
-                    const currentWeather = weather.data.current;
-                    console.log(currentWeather);
-                    res.render('countries/detail', { singleCountry: foundCountry, currentWeather, mapUrl });
                 })
                 .catch(err => {
                     console.log('Error', err);
@@ -77,6 +86,51 @@ router.get('/detail/:name', isLoggedIn, function (req, res) {
             console.log('Error', err);
             res.render('error-page');
         });
+});
+
+router.post('/detail/:id', isLoggedIn, function (req, res) {
+    // const { id, name, email } = req.user.get();
+    const userId = req.user.get().id;
+    favorite.findOrCreate({
+        where: {
+            userId: userId,
+            name: req.body.countryName,
+            flag: req.body.countryFlag,
+            continents: req.body.countryContinents
+        }
+    })
+        .then(([favorite, created]) => {
+            if (created === true) {
+                req.flash('added', `'${req.body.countryName}' added to your favorite list!`);
+                res.redirect(`/countries/detail/${req.body.countryName}`);
+            } else {
+                req.flash('removed', `'${req.body.countryName}' removed from your favorite list.`);
+                res.redirect(`/countries/detail/${req.body.countryName}`);
+            }
+            // return res.redirect(`/countries/${req.body.countryName}`);
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+});
+
+router.delete('/detail/:name', isLoggedIn, function (req, res) {
+    favorite.destroy({
+        where: {
+            userId: req.user.id,
+            name: req.body.countryName
+        }
+    })
+        .then(deleted => {
+            req.flash('removed', `'${req.body.countryName}' removed from your favorite list.`);
+            return res.redirect(`/countries/detail/${req.body.countryName}`);
+        })
+        .catch(err => {
+            console.log('Errorrrrrrr', err);
+            res.render('error-page');
+        });
+
 });
 
 router.post('/search', isLoggedIn, function (req, res) {

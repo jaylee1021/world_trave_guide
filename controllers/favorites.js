@@ -67,4 +67,31 @@ router.post('/:id', isLoggedIn, function (req, res) {
         });
 });
 
+router.post('/detail/:id', isLoggedIn, function (req, res) {
+    // const { id, name, email } = req.user.get();
+    const userId = req.user.get().id;
+    favorite.findOrCreate({
+        where: {
+            userId: userId,
+            name: req.body.countryName,
+            flag: req.body.countryFlag,
+            continents: req.body.countryContinents
+        }
+    })
+        .then(([favorite, created]) => {
+            if (created === true) {
+                req.flash('added', `'${req.body.countryName}' added to your favorite list!`);
+                res.redirect(`/countries/detail/${req.body.countryName}`);
+            } else {
+                req.flash('removed', `'${req.body.countryName}' removed from your favorite list.`);
+                res.redirect(`/countries/detail/${req.body.countryName}`);
+            }
+            // return res.redirect(`/countries/${req.body.countryName}`);
+        })
+        .catch(err => {
+            console.log('Error', err);
+            res.render('error-page');
+        });
+});
+
 module.exports = router;

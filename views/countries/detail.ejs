@@ -72,15 +72,19 @@
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <div class="box-light">
                         <div class="card-body">
-                            <p class="card-text">Map</p>
+                            <p class="card-text">Favorite</p>
+                            <% const favoriteArray = [] %>
+                            <% for( let x = 0; x < userFavorite.length; x++ ) { %>
+                            <% favoriteArray.push(userFavorite[x].name) %>
+                            <% } %>
                             <% if (favoriteArray.includes(singleCountry.name)) { %>
-                            <form method="POST" action="/countries/<%= singleCountry.name %>?_method=DELETE">
+                            <form method="POST" action="/countries/detail/<%= singleCountry.name %>?_method=DELETE">
                                 <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
                                 <button type="submit" class="btn btn-light">Remove from Favorite</button>
                             </form>
                             <% } else {%>
 
-                            <form method="POST" action="/favorites/favorite">
+                            <form method="POST" action="/countries/detail/<%= singleCountry.name %>">
                                 <input type="hidden" name="countryName" value="<%=singleCountry.name %>">
                                 <input type="hidden" name="countryFlag" value="<%=singleCountry.flags %>">
                                 <input type="hidden" name="countryContinents" value="<%=singleCountry.continents %>">
