@@ -8,6 +8,7 @@ const app = express();
 weatherApiKey = process.env.weatherApiKey;
 mapApiKey = process.env.mapApiKey;
 
+
 router.get('/', isLoggedIn, function (req, res) {
     country.findAll()
         .then(countries => {

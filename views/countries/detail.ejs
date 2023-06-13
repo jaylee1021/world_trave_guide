@@ -123,6 +123,7 @@
 
                             <td class="bordersss box-light">
                                 <div class="card-body">
+                                    <% if (singleCountry.borders) { %>
                                     <% let bordersSplit = singleCountry.borders.split(', ') %>
                                     <% const result = [] %>
                                     <% for( let x = 0; x < bordersSplit.length; x++ ) { %>
@@ -135,6 +136,10 @@
                                     <% } %>
                                     <% } %>
                                     <%= result.join(', ') %>
+                                    <% } else { %>
+                                    No Border Countries
+                                    <% } %>
+
                                 </div>
                             </td>
 
