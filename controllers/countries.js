@@ -48,7 +48,38 @@ router.get('/searchby', isLoggedIn, function (req, res) {
 
             const cleaned_countries = countries.map(c => c.toJSON());
             // send as json
-            res.render('countries/searchby', { countries: cleaned_countries });
+            const region = [];
+            const subregion = [];
+            const currency = [];
+
+            for (let x = 0; x < cleaned_countries.length; x++) {
+                let singleCountry = cleaned_countries[x];
+                if (region.includes(singleCountry.region)) {
+                    continue;
+                } else {
+                    region.push(singleCountry.region);
+                }
+            }
+
+            for (let x = 0; x < cleaned_countries.length; x++) {
+                let singleCountry = cleaned_countries[x];
+                if (subregion.includes(singleCountry.subregion) || singleCountry.subregion === null) {
+                    continue;
+                } else {
+                    subregion.push(singleCountry.subregion);
+                }
+            }
+
+            for (let x = 0; x < cleaned_countries.length; x++) {
+                let singleCountry = cleaned_countries[x];
+                if (currency.includes(singleCountry.currencies_name) || singleCountry.currencies_name === null) {
+                    continue;
+                } else {
+                    currency.push(singleCountry.currencies_name);
+                }
+            }
+
+            res.render('countries/searchby', { countries: cleaned_countries, region, subregion, currency });
         })
         .catch(err => {
             console.log('Error', err);
@@ -162,7 +193,7 @@ router.post('/searchby', isLoggedIn, function (req, res) {
                 case 'region':
                     for (let i = 0; i < cleaned_countries.length; i++) {
                         let country = cleaned_countries[i];
-                        if (country.region.toLowerCase() === req.body.item.toLowerCase()) {
+                        if (country.region === req.body.item) {
                             result.push(country);
                         }
                     }
@@ -170,15 +201,15 @@ router.post('/searchby', isLoggedIn, function (req, res) {
                 case 'subregion':
                     for (let i = 0; i < cleaned_countries.length; i++) {
                         let country = cleaned_countries[i];
-                        if (country.subregion.toLowerCase() === req.body.item.toLowerCase()) {
+                        if (country.subregion === req.body.item) {
                             result.push(country);
                         }
                     }
                     break;
-                case 'unmember':
+                case 'currency':
                     for (let i = 0; i < cleaned_countries.length; i++) {
                         let country = cleaned_countries[i];
-                        if (country.unMember) {
+                        if (country.currencies_name === req.body.item) {
                             result.push(country);
                         }
                     }

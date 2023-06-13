@@ -18,21 +18,29 @@
 
                     <select class="form-select" id="validationDefault04" id="field" name="field"
                         aria-label="Example select with button addon" style="background-color: rgba(255,255,255,.5);"
-                        required>
+                        onChange="populate(this.id,'item', 
+                              '<%= JSON.stringify(region) %>',
+                              '<%= JSON.stringify(subregion) %>',
+                              '<%= JSON.stringify(currency) %>',
+                              )" required>
                         <option selected disabled value="">Choose a Country</option>
                         <option value="region">Region</option>
                         <option value="subregion">Subregion</option>
-                        <option value="unmember">UN Member</option>
+                        <option value="currency">Currency</option>
 
                     </select>
                 </div>
                 <br>
-                <div>
-                    <div class=" form-outline form-white mb-4">
-                        <input type="text" id="item" name="item" class="form-control form-control-lg text-box"
-                            placeholder="Type in criteria" required />
+                <div class="form-group column is-12">
 
-                    </div>
+                    <select id="item" class="form-select" name="item" style="background-color: rgba(255,255,255,.5);"
+                        required>
+                        <option selected disabled>Choose Your Category</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
 
