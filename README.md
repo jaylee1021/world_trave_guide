@@ -51,9 +51,10 @@ The Goal is to provide information about select country.
 
 * Requires `node.js`, `postgres`, and `sequelize`
 1. `Fork` and `Clone` this repository to your local machine.
-2. Run `npm run dev` to start server.
-3. Open `localhost:8000` in your broswer to use the app or 
-4. Open the directory in your text editor of choice to view or edit the code
+2. Run `npm install` to install dependencies.
+3. Run `npm run dev` to start server.
+4. Open `localhost:8000` in your broswer to use the app or 
+5. Open the directory in your text editor of choice to view or edit the code
 
 <hr />
 
