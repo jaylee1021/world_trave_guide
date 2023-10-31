@@ -15,15 +15,12 @@
                             style="margin-top: 10px;  width: 500px;">
                     </div>
                     <div class="col-md-5" style="margin: auto;">
-                        <!-- <div class="card-body"> -->
-
                         <h5 class="card-text" style="margin:15px"> Capital: <%= singleCountry.capital %></h5>
                         <h5 class="card-text"> Continent: <%= singleCountry.continents %></h5>
                         <h5 class="card-text" style="margin:15px"> Population: <%= singleCountry.population %></h5>
                         <h5 class="card-text"> Currency: <%= singleCountry.currencies_name %> -
                             <%= singleCountry.currencies %> </h5>
                         <h5 class="card-text" style="margin:15px"> Languages: <%= singleCountry.languages %></h5>
-                        <!-- </div> -->
 
                         <% const favoriteArray = [] %>
                         <% for( let x = 0; x < userFavorite.length; x++ ) { %>
@@ -48,7 +45,6 @@
                 </div>
             </div>
             <br>
-
 
             <div class="row">
                 <iframe width='100%' height='400px' src="<%= mapUrl %>" title="Street view Map"
@@ -154,9 +150,6 @@
                 </tbody>
             </table>
             <hr>
-
-
-
 
             <!-- weather data -->
             <div class=" box-light">
